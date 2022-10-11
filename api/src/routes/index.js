@@ -16,9 +16,9 @@ const router = Router();
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 const apiData = async () => {
-    const apiBreeds = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+    const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     //deberia tirar un error en caso de quye la info venga vacia
-    const apiData = await apiBreeds.data.map(breed => {
+    const apiData = await apiRawData.data.map(breed => {
         return {
             id: breed.id,
             name: breed.name,
@@ -53,6 +53,7 @@ const getAllBreeds = async () => {
     return totalInfo
 }
 
+
 router.get('/dogs', async (req, res) => {
     try {
         const newBreedName = req.query.name;
@@ -73,6 +74,21 @@ router.get('/dogs', async (req, res) => {
     } catch {
         console.log('fallo la carga de perros')
     }
+})
+
+router.get("/temperaments", async(req,res ) => {
+    const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+    const apiTemperaments = apiRawData.data.map(breed => breed.temperament ? 
+        breed.temperament.split(', ') : null );
+    tempers = apiTemperaments.reduce((first, second) => [...first.concat(second)])
+    //hacer un foreach para volcarlo a la base de datos.kk
+    tempers.forEach(temp => {
+        Temperamento.findOrCreate({
+            where: {name: temp}
+        })
+    })
+    const allTemperaments = await Temperamento.findAll();
+    res.send(allTemperaments)
 })
 
 
