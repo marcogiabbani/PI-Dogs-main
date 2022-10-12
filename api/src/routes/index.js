@@ -42,23 +42,6 @@ const apiData = async (dataExtended) => {
     return apiData;
 }
 
-// const apiDataPlus = async () => {
-//     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
-//     //deberia tirar un error en caso de quye la info venga vacia
-//     const apiData = await apiRawData.data.map(breed => {
-//         return {
-//             id: breed.id,
-//             name: breed.name,
-//             image: breed.image,
-//             temperament: breed.temperament,
-//             weight: breed.weight,
-//             height: breed.height,
-//             life_span: breed.life_span,
-//             localDbBreed: false
-//         };
-//     });
-//     return apiData;
-// }
 
 const dbData = async () => {
     const dbBreeds = await Dog.findAll({
@@ -68,16 +51,13 @@ const dbData = async () => {
             through: {
                 attributes: [],
             }
-
         }
     })
     return dbBreeds; 
 }
 
+
 const getAllBreeds = async (dataExtended = false) => {
-    
-    // let apiInfo;
-    // dataExtended ? apiInfo = await apiDataPlus() : 
     const apiInfo = await apiData(dataExtended)
     const dbInfo = await dbData();
     const totalInfo = apiInfo.concat(dbInfo);
@@ -105,6 +85,7 @@ router.get('/dogs', async (req, res) => {
         console.log('fallo la carga de perros')
     }
 })
+
 
 router.get("/temperaments", async(req,res ) => {
     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
@@ -141,14 +122,14 @@ router.post('/dogs', async (req, res) => {
     }
 });
 
-router.get("/dogs:id", async (req, res) => {
+
+router.get("/dogs:idRaza", async (req, res) => {
     try {
-        const {id} = req.params;
-        console.log(id)
-        if (id) {
+        const {idRaza} = req.params;
+        if (idRaza) {
             let dataExtended = true;
             const dogs = await getAllBreeds(dataExtended);
-            const foundedDog = dogs.filter((breed) => (breed.id == id))
+            const foundedDog = dogs.filter((breed) => (breed.id == idRaza))
             res.status(200).send(foundedDog)
         }
     }  catch {
