@@ -1,0 +1,1 @@
+chequear el tema del force para que no carge la base de datos cada vez que levanto el servidor, no me acuerdo como se hacia eso

@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {Raza, Temperamento} = require('../db')
+const {Dog, Temperament} = require('../db')
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -33,9 +33,9 @@ const apiData = async () => {
 }
 
 const dbData = async () => {
-    const dbBreeds = await Raza.findAll({
+    const dbBreeds = await Dog.findAll({
         include: {
-            model: Temperamento,
+            model: Temperament,
             attributes: ['name'],
             through: {
                 attributes: [],
@@ -58,7 +58,6 @@ router.get('/dogs', async (req, res) => {
     try {
         const newBreedName = req.query.name;
         const dogs = await getAllBreeds();
-
         if (newBreedName) {
             const foundedBreed = dogs.filter(
                 //podria ser un find?
@@ -70,7 +69,7 @@ router.get('/dogs', async (req, res) => {
                 res.status(404).send("no esta la breed")
             }
         } 
-            return res.status(200).json(dogs)
+        return res.status(200).send(dogs)
     } catch {
         console.log('fallo la carga de perros')
     }
@@ -83,13 +82,34 @@ router.get("/temperaments", async(req,res ) => {
     tempers = apiTemperaments.reduce((first, second) => [...first.concat(second)])
     //hacer un foreach para volcarlo a la base de datos.kk
     tempers.forEach(temp => {
-        Temperamento.findOrCreate({
+        Temperament.findOrCreate({
             where: {name: temp}
         })
     })
-    const allTemperaments = await Temperamento.findAll();
+    const allTemperaments = await Temperament.findAll();
     res.send(allTemperaments)
 })
+
+
+router.post('/dogs', async (req, res) => {
+    try{
+        const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
+        let dog = await Dog.create({
+            name,
+            height,
+            weight,
+            life_span,
+            createdBreed,
+    });
+    let temperamentDb = await Temperament.findAll({
+        where: {name: temperament},
+    });
+    dog.addTemperament(temperamentDb);
+    res.status(200).send("Ok");
+    } catch (error) {
+    res.status(400).send("fallo la carga")
+    }
+});
 
 
 

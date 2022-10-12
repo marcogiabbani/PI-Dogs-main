@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('raza', {
+  sequelize.define('dog', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -22,14 +22,22 @@ module.exports = (sequelize) => {
       type: DataTypes.JSON,
       allowNull: false,
     },
-    lifespan: {
+    life_span: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    localDbBreed: {
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    createdBreed: {
       type: DataTypes.BOOLEAN,
       allowNull: false, 
       defaultValue: true
     }
-  });
+  },
+  {
+    timestamps: false,
+    createdAt: false
+});
 };
