@@ -26,10 +26,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     createdBreed: {
       type: DataTypes.BOOLEAN,
       allowNull: false, 

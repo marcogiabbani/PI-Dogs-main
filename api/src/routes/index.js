@@ -15,22 +15,50 @@ const router = Router();
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-const apiData = async () => {
+const apiData = async (dataExtended) => {
     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     //deberia tirar un error en caso de quye la info venga vacia
-    const apiData = await apiRawData.data.map(breed => {
+    let apiData;
+    dataExtended ? apiData = await apiRawData.data.map(breed => {
         return {
             id: breed.id,
             name: breed.name,
             image: breed.image,
             temperament: breed.temperament,
-            //mas tarde puede que haya que hacer un split aca.
-            weigth: breed.weigth,
+            weight: breed.weight,
+            height: breed.height,
+            life_span: breed.life_span,
             localDbBreed: false
-        };
-    });
+        };}) : apiData = await apiRawData.data.map(breed => {
+                return {
+                    id: breed.id,
+                    name: breed.name,
+                    image: breed.image,
+                    temperament: breed.temperament,
+                    weight: breed.weight,
+                    localDbBreed: false
+                };
+            });
     return apiData;
 }
+
+// const apiDataPlus = async () => {
+//     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+//     //deberia tirar un error en caso de quye la info venga vacia
+//     const apiData = await apiRawData.data.map(breed => {
+//         return {
+//             id: breed.id,
+//             name: breed.name,
+//             image: breed.image,
+//             temperament: breed.temperament,
+//             weight: breed.weight,
+//             height: breed.height,
+//             life_span: breed.life_span,
+//             localDbBreed: false
+//         };
+//     });
+//     return apiData;
+// }
 
 const dbData = async () => {
     const dbBreeds = await Dog.findAll({
@@ -46,8 +74,11 @@ const dbData = async () => {
     return dbBreeds; 
 }
 
-const getAllBreeds = async () => {
-    const apiInfo = await apiData();
+const getAllBreeds = async (dataExtended = false) => {
+    
+    // let apiInfo;
+    // dataExtended ? apiInfo = await apiDataPlus() : 
+    const apiInfo = await apiData(dataExtended)
     const dbInfo = await dbData();
     const totalInfo = apiInfo.concat(dbInfo);
     return totalInfo
@@ -80,7 +111,6 @@ router.get("/temperaments", async(req,res ) => {
     const apiTemperaments = apiRawData.data.map(breed => breed.temperament ? 
         breed.temperament.split(', ') : null );
     tempers = apiTemperaments.reduce((first, second) => [...first.concat(second)])
-    //hacer un foreach para volcarlo a la base de datos.kk
     tempers.forEach(temp => {
         Temperament.findOrCreate({
             where: {name: temp}
@@ -111,7 +141,20 @@ router.post('/dogs', async (req, res) => {
     }
 });
 
-
+router.get("/dogs:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        console.log(id)
+        if (id) {
+            let dataExtended = true;
+            const dogs = await getAllBreeds(dataExtended);
+            const foundedDog = dogs.filter((breed) => (breed.id == id))
+            res.status(200).send(foundedDog)
+        }
+    }  catch {
+        res.status(404).send("no se encontro el perro")
+    }
+})
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
