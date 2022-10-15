@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     life_span: {
       type: DataTypes.STRING,
       allowNull: true
-    },
+    },  
     createdBreed: {
       type: DataTypes.BOOLEAN,
       allowNull: false, 

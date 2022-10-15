@@ -23,7 +23,7 @@ const apiData = async (dataExtended) => {
         return {
             id: breed.id,
             name: breed.name,
-            image: breed.image,
+            image: breed.image.url,
             temperament: breed.temperament,
             weight: breed.weight,
             height: breed.height,
@@ -33,7 +33,7 @@ const apiData = async (dataExtended) => {
                 return {
                     id: breed.id,
                     name: breed.name,
-                    image: breed.image,
+                    image: breed.image.url,
                     temperament: breed.temperament,
                     weight: breed.weight,
                     localDbBreed: false
