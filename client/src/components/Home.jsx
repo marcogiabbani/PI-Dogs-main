@@ -42,8 +42,10 @@ export default function Home (){
         </div>
 <div>        {allDogs && allDogs.map(doge => {
             return (
+                <div key={doge.id}>
             <Card name={doge.name} temperament={doge.temperament} weight={doge.weight.metric}
-                image={doge.image}/>
+                image={doge.image} />
+                </div>
         )})}</div>
 
         </div>
