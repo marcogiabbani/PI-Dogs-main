@@ -1,6 +1,10 @@
+import { getDogsTemperaments } from "../actions";
 
 const initialState = {
-    dogBreeds : []
+    dogBreeds : [],
+    allDogBreeds : [],
+    dogTemperaments : []
+    
     //WHAT IS HOUNG ON 
 }
 
@@ -9,7 +13,21 @@ function rootReducer (state = initialState, action){
         case "GET_DOGS":
             return {
                 ...state,
-                dogBreeds: action.payload
+                dogBreeds: action.payload,
+                allDogBreeds : action.payload
+            }
+        case "GET_DOGS_TEMPERAMENTS":
+            return {
+                ...state,
+                dogTemperaments: action.payload
+            }
+        case 'FILTER_BY_TEMPERAMENTS':
+            const allDogs = state.allDogBreeds;
+            const temperamentFiltered = action.payload === 'All' ? allDogs :
+            allDogs.filter(dog => dog.temperament && dog.temperament.includes(action.payload))
+            return {
+                ...state, 
+                dogBreeds: temperamentFiltered
             }
         default:
             return state;

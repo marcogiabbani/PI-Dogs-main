@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getDogs } from "../actions";
+import { getDogs, getDogsTemperaments, filterDogsByTemperament } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import PageOrganizer from "./PageOrganizer";
@@ -9,6 +9,7 @@ import PageOrganizer from "./PageOrganizer";
 export default function Home (){
     const dispatch = useDispatch();
     const allDogs = useSelector((state) => state.dogBreeds);
+    const allTemperaments = useSelector((state) => state.dogTemperaments)
 
     const [currentPage, setCurrentPage] = useState(1);
     const [dogsPerPage, setDogsPerPage] = useState(8);
@@ -23,11 +24,16 @@ export default function Home (){
 
     useEffect(() => {
         dispatch(getDogs());
+        dispatch(getDogsTemperaments());
     }, [dispatch])
 
     const handleClick = (event=>{
         event.preventDefault();
         dispatch(getDogs());
+    })
+
+    const handleTemperamentFilter = (event=>{
+        dispatch(filterDogsByTemperament(event.target.value))
     })
 
     return (
@@ -40,14 +46,24 @@ export default function Home (){
             <select>
                 <option value="asc">Ascendant</option>
                 <option value="desc">Descendant</option>
-            </select>
-            <select>
                 <option value="alpha">Alphabetical order</option>
                 <option value="weigth">Weigth</option>
-                <option value="temp">Temperament</option>
-                <option value="crtdBreed">Created breed</option>
-                {/* ella le pasa los mismos values que lo que tiene en la api */}
             </select>
+            <select>
+                <option value="createdBreed">Created breed</option>
+            </select>
+            <select onChange={event => handleTemperamentFilter(event)}> 
+                <option value="All">All</option>
+                {allTemperaments && allTemperaments.map(temperament => {
+                    return (
+                        <option value={temperament.name}>
+                            {temperament.name}
+                        </option>
+                    )
+                })
+            }
+            </select>
+        
             <PageOrganizer dogsPerPage={dogsPerPage} allDogs={allDogs.length}
                            pageOrganizer={pageOrganizer}/>
         </div>
