@@ -28,7 +28,7 @@ const apiData = async (dataExtended) => {
             weight: breed.weight,
             height: breed.height,
             life_span: breed.life_span,
-            localDbBreed: false
+            createdBreed: false
         };}) : apiData = await apiRawData.data.map(breed => {
                 return {
                     id: breed.id,
@@ -36,7 +36,7 @@ const apiData = async (dataExtended) => {
                     image: breed.image.url,
                     temperament: breed.temperament,
                     weight: breed.weight,
-                    localDbBreed: false
+                    createdBreed: false
                 };
             });
     return apiData;

@@ -26,3 +26,10 @@ export function filterDogsByTemperament(payload) {
         payload
     }
 }
+
+export function filterByCreated(payload) {
+    return {
+        type: "FILTER_BY_CREATED",
+        payload
+    }
+}

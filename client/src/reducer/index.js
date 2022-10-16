@@ -24,10 +24,21 @@ function rootReducer (state = initialState, action){
         case 'FILTER_BY_TEMPERAMENTS':
             const allDogs = state.allDogBreeds;
             const temperamentFiltered = action.payload === 'All' ? allDogs :
-            allDogs.filter(dog => dog.temperament && dog.temperament.includes(action.payload))
+            allDogs.filter(dog => dog.temperament && 
+                           dog.temperament.includes(action.payload))
             return {
                 ...state, 
                 dogBreeds: temperamentFiltered
+            }
+        case "FILTER_BY_CREATED":
+            const createdAndApiDogs = state.allDogBreeds;
+            const createdFiltered = action.payload === 'created' ? 
+            createdAndApiDogs.filter(dog => dog.createdBreed) :
+            createdAndApiDogs.filter(dog => !dog.createdBreed)
+            return {
+                ...state,
+                dogBreeds: action.payload === 'All' ? state.allDogBreeds :
+                            createdFiltered
             }
         default:
             return state;
