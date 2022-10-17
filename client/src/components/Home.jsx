@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated } from "../actions";
+import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated, orderByName } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import PageOrganizer from "./PageOrganizer";
@@ -10,6 +10,8 @@ export default function Home (){
     const dispatch = useDispatch();
     const allDogs = useSelector((state) => state.dogBreeds);
     const allTemperaments = useSelector((state) => state.dogTemperaments)
+
+    const [order, setOrder] = useState('')
 
     const [currentPage, setCurrentPage] = useState(1);
     const [dogsPerPage, setDogsPerPage] = useState(8);
@@ -32,6 +34,14 @@ export default function Home (){
         dispatch(getDogs());
     })
 
+    function handleSort (event) {
+        event.preventDefault();
+        dispatch(orderByName(event.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordered ${event.target.value}`);
+    }
+
+
     const handleTemperamentFilter = (event=>{
         dispatch(filterDogsByTemperament(event.target.value))
     })
@@ -47,11 +57,16 @@ export default function Home (){
             <h1>Dogs</h1>
             <button onClick={event => {handleClick(event)}}>Reload Dogs </button>
         <div>
-            <select>
+            <select onChange={event => handleSort(event)}>
+                <option value="alpha">Alphabetical order</option>
                 <option value="asc">Ascendant</option>
                 <option value="desc">Descendant</option>
-                <option value="alpha">Alphabetical order</option>
+            </select>
+
+            <select>
                 <option value="weigth">Weigth</option>
+                <option value="asc">Ascendant</option>
+                <option value="desc">Descendant</option>
             </select>
 
             <select onChange={event => handleCreatedFilter(event)}>
