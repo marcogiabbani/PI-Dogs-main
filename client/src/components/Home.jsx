@@ -5,6 +5,7 @@ import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import PageOrganizer from "./PageOrganizer";
+import SearchBar from "./SearchBar";
 
 export default function Home (){
     const dispatch = useDispatch();
@@ -89,6 +90,7 @@ export default function Home (){
         
             <PageOrganizer dogsPerPage={dogsPerPage} allDogs={allDogs.length}
                            pageOrganizer={pageOrganizer}/>
+            <SearchBar/>
         </div>
         <div> {
             currentDogs && currentDogs.map(doge => {
