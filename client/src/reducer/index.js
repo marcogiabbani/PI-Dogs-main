@@ -38,6 +38,10 @@ function rootReducer (state = initialState, action){
             ...state, 
             dogBreeds: temperamentFiltered
         }
+        case "POST_BREED":
+            return {
+                ...state,
+            }
             
         case "FILTER_BY_CREATED":
             const createdAndApiDogs = state.allDogBreeds;

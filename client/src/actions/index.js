@@ -20,6 +20,13 @@ export function getDogsTemperaments(){
     }
 }
 
+export function postBreed (payload) {
+    return async function(dispatch){
+        let response = await axios.post("http://localhost:3001/dogs", payload);
+        return response;
+    }
+}
+
 export function getBreedName(payload) {
     return async function(dispatch) { 
         try {

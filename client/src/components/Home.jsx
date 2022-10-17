@@ -53,8 +53,7 @@ export default function Home (){
 
     return (
         <div>
-            <Link to='/newBreed'>Add new breed</Link>
-            {/* ver que link va bien */}
+            <Link to='/createBreed'>Add new breed</Link>
             <h1>Dogs</h1>
             <button onClick={event => {handleClick(event)}}>Reload Dogs </button>
         <div>
