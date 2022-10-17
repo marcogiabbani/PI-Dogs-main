@@ -3,10 +3,26 @@ import {Link, useHistory} from 'react-router-dom';
 import {postBreed, getDogsTemperaments} from '../actions';
 import { useDispatch, useSelector } from "react-redux";
 
+
+//ejemplo de validaciones
+function validate (input) {
+    let errors = {};
+    if (!input.name) {
+        errors.name = 'A name is required';
+    } else if (!input.temperament){
+        errors.temperament = 'At least one temperament is required';
+    }
+    return errors;
+}
+
+
+
+
 export default function CreateBreed() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const temeperaments = useSelector((state) => state.dogTemperaments)
+    const temperaments = useSelector((state) => state.dogTemperaments);
+    const [errors, setErrors] = useState({});
 
     const [input, setInput] = useState({
         name: '',
@@ -17,7 +33,7 @@ export default function CreateBreed() {
         max_life_span: 0,
         min_life_span: 0,
         createdBreed: true,
-        temeperament: []
+        temperament: []
     })
 
     useEffect(() => {
@@ -30,15 +46,27 @@ export default function CreateBreed() {
             ...input,
             [event.target.name] : event.target.value
         })
+        setErrors(validate({
+            ...input,
+            [event.target.name]: event.target.value                 //ERRRORS HANDLERS
+        }))
     }
 
     const handleSelect = (event) => {
         setInput ({
             ...input,
-            temeperament: [...input.temeperament, event.target.value]
+            temperament: [...input.temperament, event.target.value]
             
         })
         console.log(input)
+    }
+
+    const handleDelete = (tempToDelete) => {
+        setInput({
+            ...input,
+            temperament: input.temperament.filter(temper => temper !== tempToDelete)
+
+        })
     }
 
     const handleSubmit = (event) => {
@@ -54,7 +82,7 @@ export default function CreateBreed() {
             max_life_span: 0,
             min_life_span: 0,
             createdBreed: true,
-            temeperament: []
+            temperament: []
         })
         history.push("/home");
     }
@@ -68,6 +96,9 @@ export default function CreateBreed() {
                     <label>Name:</label>
                     <input type='text' value={input.name} name='name'
                         onChange={handleChange}/>
+                    {errors.name && (
+                        <p className="error">{errors.name}</p>                  //ERROR HANDLING
+                    )}
                 </div>
                 <div>
                     <label>Max height</label>
@@ -102,13 +133,24 @@ export default function CreateBreed() {
                         onChange={handleChange}/>
                 </div>
                 <select onChange={(event) => handleSelect(event)}>
-                    {temeperaments.map((temperament) => (
+
+                    {temperaments.map((temperament) => (
                         <option value={temperament.name} key={temperament.id}>{temperament.name}</option>
                     ))}
+
                 </select>
-                <ul><li>{input.temeperament.map(option => `${option}, `)}</li></ul>
+
+                {/* <ul><li>{input.temperament.map(option => `${option}, `)}</li></ul> */}
+
                 <button type="submit">Create</button>
             </form>
+
+            {input.temperament.map(temp => (
+                <div className='divTemp'>
+                    <p>{temp}</p>
+                    <button className='xButton' onClick={() => handleDelete(temp)}>X</button>
+                </div>
+            ))}
         </div>
     )
 }
