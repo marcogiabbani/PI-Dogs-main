@@ -94,10 +94,14 @@ export default function Home (){
         <div> {
             currentDogs && currentDogs.map(doge => {
                 return (
-                    <div key={doge.id}>
+                   
+                    <div>
+                         <Link to={`/dogs${doge.id}`}>
                         <Card name={doge.name} temperament={doge.temperament}
-                              weight={doge.weight.metric} image={doge.image} />
+                              weight={doge.weight.metric} image={doge.image} key={doge.id}/>
+                        </Link>
                     </div>
+
                 )
             })
         }

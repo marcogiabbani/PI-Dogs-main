@@ -3,7 +3,8 @@ import { getDogsTemperaments } from "../actions";
 const initialState = {
     dogBreeds : [],
     allDogBreeds : [],
-    dogTemperaments : []
+    dogTemperaments : [],
+    detail: []
     
     //WHAT IS HOUNG ON 
 }
@@ -76,6 +77,12 @@ function rootReducer (state = initialState, action){
                 ...state,
                 dogBreeds: sortedArr
             }
+
+            case 'GET_DETAILS':
+                return {
+                    ...state,
+                    detail: action.payload
+                }
 
             // case "ORDER_BY_WEIGHT":
             //     let sortedWeight = action.payload === "asc" ? state.dogBreeds.sort(function(a,b) {
