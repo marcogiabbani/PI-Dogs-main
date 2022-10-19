@@ -39,8 +39,8 @@ const apiData = async (dataExtended) => {
                     image: breed.image.url,
                     temperament: breed.temperament,
                     weight: {
-                        imperial: breed.weight.imperial,
-                        imperialAverage: (parseInt(array[0]) + parseInt(array[1])) / 2
+                        metric: breed.weight.imperial,
+                        metricAverage: (parseInt(array[0]) + parseInt(array[1])) / 2
                     
                     },
                     createdBreed: false

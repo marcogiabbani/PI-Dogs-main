@@ -78,7 +78,7 @@ export default function CreateBreed() {
             },
             weight: {
                 metric: `${input.max_weight} - ${input.min_weight}`,
-                metricAverage: (input.max_weight + input.min_weight) / 2
+                metricAverage: (parseInt(input.max_weight) + parseInt(input.min_weight)) / 2
             },
             life_span: `${input.max_life_span} - ${input.min_life_span} years`,
             createdBreed: true,
