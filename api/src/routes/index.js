@@ -15,6 +15,8 @@ const router = Router();
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
+const auxHelper = (string) => (array = string.split(' - '))
+
 const apiData = async (dataExtended) => {
     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     //deberia tirar un error en caso de quye la info venga vacia
@@ -30,12 +32,17 @@ const apiData = async (dataExtended) => {
             life_span: breed.life_span,
             createdBreed: false
         };}) : apiData = await apiRawData.data.map(breed => {
+            let array = auxHelper(breed.weight.imperial)
                 return {
                     id: breed.id,
                     name: breed.name,
                     image: breed.image.url,
                     temperament: breed.temperament,
-                    weight: breed.weight,
+                    weight: {
+                        imperial: breed.weight.imperial,
+                        imperialAverage: (parseInt(array[0]) + parseInt(array[1])) / 2
+                    
+                    },
                     createdBreed: false
                 };
             });
