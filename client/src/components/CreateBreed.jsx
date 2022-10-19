@@ -71,7 +71,19 @@ export default function CreateBreed() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(postBreed(input));
+        dispatch(postBreed({
+            name: input.name,
+            height: {
+                metric: `${input.max_height} - ${input.min_height}`
+            },
+            weight: {
+                metric: `${input.max_weight} - ${input.min_weight}`
+            },
+            life_span: `${input.max_life_span} - ${input.min_life_span} years`,
+            createdBreed: true,
+            temperament: input.temperament
+            
+            }));
         alert("New breed created");
         setInput({
             name: '',
