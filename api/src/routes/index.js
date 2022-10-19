@@ -32,14 +32,14 @@ const apiData = async (dataExtended) => {
             life_span: breed.life_span,
             createdBreed: false
         };}) : apiData = await apiRawData.data.map(breed => {
-            let array = auxHelper(breed.weight.imperial)
+            let array = auxHelper(breed.weight.metric)
                 return {
                     id: breed.id,
                     name: breed.name,
                     image: breed.image.url,
                     temperament: breed.temperament,
                     weight: {
-                        metric: breed.weight.imperial,
+                        metric: breed.weight.metric,
                         metricAverage: (parseInt(array[0]) + parseInt(array[1])) / 2
                     
                     },

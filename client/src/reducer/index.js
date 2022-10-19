@@ -84,29 +84,29 @@ function rootReducer (state = initialState, action){
                     detail: action.payload
                 }
 
-            // case "ORDER_BY_WEIGHT":
-            //     let sortedWeight = action.payload === "asc" ? state.dogBreeds.sort(function(a,b) {
-            //         //
-            //         if (a.name > b.name) {
-            //             return 1;
-            //         }
-            //         if (b.name > a.name) {
-            //             return -1
-            //         }
-            //         return 0;
-            //     }) : state.dogBreeds.sort(function(a,b) {
-            //         if (a.name > b.name) {
-            //             return -1;
-            //         }
-            //         if (b.name > a.name) {
-            //             return 1;
-            //         }
-            //         return 0;
-            //     })
-            //     return {
-            //         ...state,
-            //         dogBreeds: sortedWeight
-            //     }
+            case "ORDER_BY_WEIGHT":
+                let sortedWeight = action.payload === "asc" ? state.dogBreeds.sort(function(a,b) {
+                    
+                    if (a.weight.metricAverage > b.weight.metricAverage) {
+                        return 1;
+                    }
+                    if (b.weight.metricAverage > a.weight.metricAverage) {
+                        return -1
+                    }
+                    return 0;
+                }) : state.dogBreeds.sort(function(a,b) {
+                    if (a.weight.metricAverage > b.weight.metricAverage) {
+                        return -1;
+                    }
+                    if (b.weight.metricAverage > a.weight.metricAverage) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                return {
+                    ...state,
+                    dogBreeds: sortedWeight
+                }
 
 
         default:

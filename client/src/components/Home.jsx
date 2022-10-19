@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated, orderByName } from "../actions";
+import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
+     orderByName, orderByWeight } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import PageOrganizer from "./PageOrganizer";
@@ -35,9 +36,16 @@ export default function Home (){
         dispatch(getDogs());
     })
 
-    function handleSort (event) {
+    function handleAlphaSort (event) {
         event.preventDefault();
         dispatch(orderByName(event.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordered ${event.target.value}`);
+    }
+
+    function handleWeightSort (event) {
+        event.preventDefault();
+        dispatch(orderByWeight(event.target.value));
         setCurrentPage(1);
         setOrder(`Ordered ${event.target.value}`);
     }
@@ -57,13 +65,13 @@ export default function Home (){
             <h1>Dogs</h1>
             <button onClick={event => {handleClick(event)}}>Reload Dogs </button>
         <div>
-            <select onChange={event => handleSort(event)}>
+            <select onChange={event => handleAlphaSort(event)}>
                 <option value="alpha">Alphabetical order</option>
                 <option value="asc">Ascendant</option>
                 <option value="desc">Descendant</option>
             </select>
 
-            <select>
+            <select onChange={event => handleWeightSort(event)}>
                 <option value="weigth">Weigth</option>
                 <option value="asc">Ascendant</option>
                 <option value="desc">Descendant</option>
