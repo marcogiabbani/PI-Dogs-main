@@ -12,21 +12,15 @@ const initialState = {
 function rootReducer (state = initialState, action){
     switch(action.type) {
         case "GET_DOGS":
-            //aca si es un perro creado le cambio la la forma del temrperamente al
-            //arreglo de temperamentos. Luego lo cargo al state.
             for (let item of action.payload) {
                 let stringy = ''
                 if (item.createdBreed) {
-                    console.log(item)
                     for (let temp of item.temperaments) {
                         stringy += temp.name + ', '
                     }
                 item.temperament = stringy.slice(0,-2)
                 }
             }
-            
-
-            //lo que pasa es 
             return {
                 ...state,
                 dogBreeds: action.payload,
