@@ -60,8 +60,19 @@ const dbData = async () => {
             }
         }
     })
-    return dbBreeds; 
-}
+
+    // for (let dog of dbBreeds) {
+    //     let castedTemperaments = ""
+    //     console.log(dog)
+    //     // for (let temperament of dog.temperaments) {
+    //     //     castedTemperaments += temperament.name + ', ';
+    //     // }
+    //     // dog. : castedTemperaments;
+    // }
+    return dbBreeds;
+}       
+
+
 
 
 const getAllBreeds = async (dataExtended = false) => {
