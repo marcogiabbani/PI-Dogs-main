@@ -2,11 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
-     orderByName, orderByWeight } from "../actions";
+     orderByName, orderByWeight } from "../../actions";
 import { Link } from "react-router-dom";
-import Card from "./Card";
-import PageOrganizer from "./PageOrganizer";
-import SearchBar from "./SearchBar";
+import Card from "../Card";
+import PageOrganizer from "../PageOrganizer";
+import SearchBar from "../SearchBar";
+import "./Home.css"
 
 export default function Home (){
     const dispatch = useDispatch();
@@ -59,7 +60,7 @@ export default function Home (){
         dispatch(filterByCreated(event.target.value))
     })
 
-    return (
+    return ( <div className="homeBackground">
         <div>
             <Link to='/createBreed'>Add new breed</Link>
             <h1>Dogs</h1>
@@ -115,6 +116,7 @@ export default function Home (){
         }
         </div>
 
+        </div>
         </div>
     )
 
