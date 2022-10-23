@@ -11,6 +11,7 @@
 .homeBody {
     background-image: url("../../images/mainBackgroundHalfSolid.jpg");
     margin-left: 5rem;
+    
 }
 
 
@@ -45,6 +46,7 @@
     height: 5rem;
     color: var(--text-secondary);
     text-decoration: none;
+    cursor: pointer;
 }
 
 
@@ -86,3 +88,7 @@
     color: var(--text-primary)
 }
 
+Link {
+    text-decoration: none;
+    list-style: none;
+}

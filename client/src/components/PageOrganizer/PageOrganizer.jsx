@@ -1,4 +1,5 @@
 import React from "react";
+import "./PageOrganizer.css"
 
 export default function PageOrganizer ({dogsPerPage, allDogs, pageOrganizer}) {
     const pageNumbers = [];
@@ -7,7 +8,7 @@ export default function PageOrganizer ({dogsPerPage, allDogs, pageOrganizer}) {
     for (let i = 1 ; i <= totalPages; i++) pageNumbers.push(i);
 
     return (
-        <nav>
+        <nav className="numbers">
             <ul className="pageOrganizer"> {
                 pageNumbers && pageNumbers.map(number => (
                     <li className="number" key={number}>
