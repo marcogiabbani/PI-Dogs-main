@@ -83,8 +83,16 @@
 }
 
 
-
 Link {
     text-decoration: none;
     list-style: none;
+}
+
+.card-list {
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15vw;
+    padding: 3rem;
+
 }

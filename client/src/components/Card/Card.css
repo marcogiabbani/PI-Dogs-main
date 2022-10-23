@@ -1,0 +1,26 @@
+.card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 35vh;
+    width: 50vw;
+    min-width: 250px;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background-color:#C7C7BF;
+    box-shadow: 0 -1rem 3rem 0 #898882;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateX(-1rem);
+}
+
+.card:hover~.card {
+    transform: translateY(130px);
+}
+
+.card:not(:first-child) {
+
+    margin-top: -130px;
+}

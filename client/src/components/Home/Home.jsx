@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
      orderByName, orderByWeight } from "../../actions";
 import { Link } from "react-router-dom";
-import Card from "../Card";
+import Card from "../Card/Card";
 import PageOrganizer from "../PageOrganizer/PageOrganizer";
 import SearchBar from "../SearchBar";
 import "./Home.css"
@@ -201,11 +201,11 @@ export default function Home (){
                            pageOrganizer={pageOrganizer}/>
             <SearchBar/>
         </div>
-        <div> {
+        <div className="card-list"> {
             currentDogs && currentDogs.map(doge => {
                 return (
                    
-                    <div>
+                    <div key={doge.id} className="card">
                          <Link to={`/dogs${doge.id}`}>
                         <Card name={doge.name} temperament={doge.temperament}
                               weight={doge.weight.metric} image={doge.image} key={doge.id}/>
