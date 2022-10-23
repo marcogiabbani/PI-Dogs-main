@@ -5,25 +5,24 @@
     --bg-secondary: #383530;
     --transition-speed: 600ms;
 
-
 }
 
 
 .homeBody {
     background-image: url("../../images/mainBackgroundHalfSolid.jpg");
     margin-left: 5rem;
-
-
 }
+
 
 .navbar {
     margin-left: 0;
     width: 5rem;
     height: 100vh;
     position: fixed;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-secondary);
     transition: width 200ms ease;
 }
+
 
 .navbar-nav {
     list-style: none;
@@ -34,47 +33,56 @@
     align-items: center;
 }
 
+
 .nav-item {
     width: 100%;
-
-    
 }
+
 
 .nav-link {
     display: flex;
     align-items: center;
     height: 5rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     text-decoration: none;
 }
+
 
 .link-text {
     display: none;
     margin-left: 1rem;
+    justify-content: left;
 }
+
 
 .nav-link svg {
     min-width: 2rem;
     max-width: 5vh;
     margin: 0 1.5rem;
-    fill: var(--text-primary);
-    color: var(--text-primary);
+    fill: var(--text-secondary);
+    color: var(--text-secondary);
     transition: var(--transition-speed);
 }
+
 
 .navbar:hover {
     width: 16rem;
 }
 
+
 .navbar:hover .link-text {
     display: block;
 }
 
+
 .nav-item:hover svg{
-    fill: var(--text-secondary);
+    fill: var(--text-primary);
+    background-color: var(--bg-primary);
+
 }
 
+
 .nav-link:hover {
-    color: var(--text-secondary)
+    color: var(--text-primary)
 }
 
