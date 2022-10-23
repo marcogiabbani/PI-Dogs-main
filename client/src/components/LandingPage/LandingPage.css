@@ -52,18 +52,17 @@ body {
     opacity: 0;
 }
 
-.container:hover 
+.container:hover
     .dogStanding {
         opacity: 1;
         transition: 0.2s;
     }
 
-
-.container:hover 
+.container:hover
     .dogSitting {
-        opacity: 0;
-        transition: 0.2s;
-    }
+    opacity: 0;
+    transition: 0.2s;
+}
 
 
 .button-53 {
@@ -111,4 +110,5 @@ body {
     
     
 }
-    
+
+
