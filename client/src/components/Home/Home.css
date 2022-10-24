@@ -8,11 +8,15 @@
 }
 
 
-.homeBody {
+Body {
     background-image: url("../../images/mainBackgroundHalfSolid.jpg");
-    margin-left: 5em;
-    
 }
+
+.homeBody {
+    margin-left: 5rem;
+}
+
+/*  puedo aplicar este margen a cada componente y eliminar este div */
 
 
 .navbar {
