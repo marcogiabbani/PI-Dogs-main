@@ -162,9 +162,10 @@ export default function Home (){
 
             <div className="homeBody">
                 <SearchBar/>
-                <select onChange={event => handleTemperamentFilter(event)}> 
+                <div className="container">
+                <select className="select-button" onChange={event => handleTemperamentFilter(event)}> 
                     <option value="All">
-                        All
+                        Look for all temperaments or just for...
                     </option>
                     {allTemperaments && allTemperaments.map(temperament => {
                         return (
@@ -175,6 +176,7 @@ export default function Home (){
                     })
                 }
                 </select>
+                </div>
                 <div className="card-list"> {
                     currentDogs && currentDogs.map(doge => {
                         return (
