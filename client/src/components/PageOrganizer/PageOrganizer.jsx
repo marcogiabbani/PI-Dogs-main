@@ -11,9 +11,11 @@ export default function PageOrganizer ({dogsPerPage, allDogs, pageOrganizer}) {
         <nav className="numbers">
             <ul className="pageOrganizer"> {
                 pageNumbers && pageNumbers.map(number => (
-                    <li className="number" key={number}>
-                        <a onClick={() => pageOrganizer(number)}>{number}</a>
+                    <a className="number" onClick={() => pageOrganizer(number)}>
+                    <li  key={number}>
+                        {number}
                     </li>
+                    </a>
                 ))
             }
             </ul>

@@ -18,19 +18,19 @@ export default function Detail(props) {
         <div>
             {
                 myBreed.length > 0 ? 
-                <div className='detail'>
-                    <div className='detail-card'>
-                    <h1>{myBreed[0].name}</h1>
-                    <img src={myBreed[0].image}/>
-                    
-                    <h2>Temperament: {myBreed[0].temperament}</h2>
-                    <h2>Weight renge: {myBreed[0].weight.metric} KGs</h2>
-                    <h2>Height range: {myBreed[0].height.metric} mts.</h2>
-                    <h2>Life span range: {myBreed[0].life_span} years</h2>
+                <div className='detailContainer'>
+                    <h1 className="welcome-title">{myBreed[0].name}</h1>
+                    <div className='container'>
+                        <img className='detailImg' src={myBreed[0].image}/>
+                        <h2>Temperament: {myBreed[0].temperament}</h2>
+                        <h2>Weight renge: {myBreed[0].weight.metric} KGs</h2>
+                        <h2>Height range: {myBreed[0].height.metric} mts.</h2>
+                        <h2>Life span range: {myBreed[0].life_span} years</h2>
+                        <Link to='/home'><button className='button-53'>Home</button></Link>
                     </div>
-                </div> : <p>Loading...</p>
+                </div> : <><p>Loading...</p><Link to='/home'><button className='homeButton'>Home</button></Link></>
             }
-            <Link to='/home'><button>Home</button></Link>
+            
         </div>
     )
 }

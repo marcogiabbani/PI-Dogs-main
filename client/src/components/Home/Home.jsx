@@ -164,7 +164,8 @@ export default function Home (){
         <div className="homeBody">
 
         <div>
-            <h1>Dogs</h1>
+            <h1 className="welcome-title">Dogs</h1>
+            <SearchBar/>
             {/* <button onClick={event => {handleClick(event)}}>Reload Dogs </button> */}
         <div>
             {/* <select onChange={event => handleAlphaSort(event)}>
@@ -197,9 +198,7 @@ export default function Home (){
             }
             </select>
         
-            <PageOrganizer dogsPerPage={dogsPerPage} allDogs={allDogs.length}
-                           pageOrganizer={pageOrganizer}/>
-            <SearchBar/>
+
         </div>
         <div className="card-list"> {
             currentDogs && currentDogs.map(doge => {
@@ -216,7 +215,11 @@ export default function Home (){
             })
         }
         </div>
+        <div className="page-list">
+            <PageOrganizer dogsPerPage={dogsPerPage} allDogs={allDogs.length}
+                            pageOrganizer={pageOrganizer}/>
 
+        </div>
         </div>
         </div>
         </div>

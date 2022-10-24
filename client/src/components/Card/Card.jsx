@@ -11,7 +11,7 @@ import "./Card.css"
                 <h5> Temperaments: {temperament}</h5>
                 <h5>Weight range: {weight}</h5>
                 </div>
-                <img src={image} alt='dogePhoto'></img>
+                <img src={image} alt='dogePhoto' className="cardImg"></img>
             </div>
             
 

@@ -1,9 +1,37 @@
 ul {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     list-style: none;
 }
 
 li {
     cursor: pointer;
+}
+
+.number {
+    background-color: red;
+    width: 3vw;
+    height: 3vw;
+    min-width: 25px;
+    min-height: 25px;
+
+    padding: .5rem;
+    border-radius: 3px;
+    background-color: var(--text-primary);
+    box-shadow: 0 -.1rem .8rem 0 var(--text-secondary);
+    transition: .2s;
+}
+
+.number:hover {
+    transform: translateY(-1vw);
+}
+
+.number:hover~.number {
+    transform: translateX(2vw);
+}
+
+.number:not(:last-child) {
+
+    margin-right: -2vw;
 }

@@ -10,7 +10,7 @@
 
 .homeBody {
     background-image: url("../../images/mainBackgroundHalfSolid.jpg");
-    margin-left: 5rem;
+    margin-left: 5em;
     
 }
 
@@ -90,9 +90,18 @@
     flex-direction: column;
     margin-left: 15vw;
     padding: 3rem;
-    
-
 }
+
+.page-list {
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+
+
+
 
 a:link {
     text-decoration: none;
