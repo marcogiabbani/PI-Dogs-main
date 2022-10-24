@@ -83,10 +83,6 @@
 }
 
 
-Link {
-    text-decoration: none;
-    list-style: none;
-}
 
 .card-list {
     min-width: 100vw;
@@ -94,5 +90,26 @@ Link {
     flex-direction: column;
     margin-left: 15vw;
     padding: 3rem;
+    
 
+}
+
+a:link {
+    text-decoration: none;
+
+    
+}
+
+a:visited {
+    text-decoration: none;
+    
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+    
 }

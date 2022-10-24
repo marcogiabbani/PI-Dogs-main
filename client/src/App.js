@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import LandingPage from './components/LandingPage/LandingPage';
 import Home from './components/Home/Home';
 import CreateBreed from './components/CreateBreed';
-import Detail from './components/Detail';
+import Detail from './components/Detail/Detail';
 
 function App() {
   return (
