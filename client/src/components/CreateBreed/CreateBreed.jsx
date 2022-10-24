@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import {postBreed, getDogsTemperaments} from '../actions';
+import {postBreed, getDogsTemperaments} from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
-
+import "./CreateBreed.css"
 
 //ejemplo de validaciones
 function validate (input) {
@@ -101,10 +101,11 @@ export default function CreateBreed() {
     }
 
     return (
-        <div>
-            <Link to='/home'><button>Home</button></Link>
-            <h1>Create your breed</h1>
-            <form onSubmit={(event) => handleSubmit(event)}>
+        <div className='detailContainer'>
+            
+            <h1 className="welcome-title">Create your breed</h1>
+            <div className='container'>
+            <form className="form-container" onSubmit={(event) => handleSubmit(event)}>
                 <div>
                     <label>Name:</label>
                     <input type='text' value={input.name} name='name'
@@ -163,7 +164,10 @@ export default function CreateBreed() {
                     <p>{temp}</p>
                     <button className='xButton' onClick={() => handleDelete(temp)}>X</button>
                 </div>
+                
             ))}
+            <Link to='/home'><button className='button-53'>Home</button></Link>
+        </div>
         </div>
     )
 }
