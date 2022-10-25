@@ -13,6 +13,7 @@ export default function Home (){
 
     const dispatch = useDispatch();
     const allDogs = useSelector((state) => state.dogBreeds);
+    const errorhandler = useSelector((state) => state.errorhandler);
     const allTemperaments = useSelector((state) => state.dogTemperaments)
     const [order, setOrder] = useState('')
     const [currentPage, setCurrentPage] = useState(1);
@@ -67,6 +68,7 @@ export default function Home (){
 
     return ( 
         <div>
+            {errorhandler ? <h1>{errorhandler}</h1> : null}
             <nav className="navbar">
                 <ul className="navbar-nav">
 

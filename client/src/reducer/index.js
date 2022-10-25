@@ -4,7 +4,9 @@ const initialState = {
     dogBreeds : [],
     allDogBreeds : [],
     dogTemperaments : [],
-    detail: []
+    detail: [],
+    errorhandler: []
+
     
     //WHAT IS HOUNG ON 
 }
@@ -116,6 +118,11 @@ function rootReducer (state = initialState, action){
                     ...state,
                     dogBreeds: sortedWeight
                 }
+                case 'ERROR':
+                    return {
+                        ...state,
+                        errorhandler: action.payload
+                    }
 
 
         default:

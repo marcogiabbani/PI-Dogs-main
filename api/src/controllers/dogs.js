@@ -105,8 +105,8 @@ router.get('/', async (req, res) => {
             }
         } 
         return res.status(200).send(dogs)
-    } catch {
-        console.log('fallo la carga de perros')
+    } catch (error){
+       return res.status(400).send(error.message)
     }
 })
 
