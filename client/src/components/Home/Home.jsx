@@ -181,7 +181,7 @@ export default function Home (){
                     currentDogs && currentDogs.map(doge => {
                         return (
                             <div key={doge.id} className="card">
-                                <Link to={`/dogs${doge.id}`}>
+                                <Link to={`/dogs/${doge.id}`}>
                                     <Card 
                                         name={doge.name}
                                         temperament={doge.temperament}

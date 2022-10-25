@@ -72,7 +72,7 @@ export function orderByWeight(payload) {
 export function getDetail (id) {
     return async function (dispatch) {
         try {
-            let json = await axios.get(`http://localhost:3001/dogs${id}`);
+            let json = await axios.get(`http://localhost:3001/dogs/${id}`);
             return dispatch({
                 type: 'GET_DETAILS',
                 payload: json.data
