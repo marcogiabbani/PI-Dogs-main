@@ -116,37 +116,43 @@ export default function CreateBreed() {
                 </div>
                 <div>
                     <label>Max height</label>
-                    <input type='number' value={input.max_height} name='max_height'
+                    <input type='range' min="0" max="200" value={input.max_height} name='max_height'
                         onChange={handleChange}/>
+                    <label>{input.max_height} cm</label>
                 </div>
                 <div>
                     <label>Min height</label>
-                    <input type='number' value={input.min_height} name='min_height'
+                    <input type='range' min="0" max="200" value={input.min_height} name='min_height'
                         onChange={handleChange}/>
+                        <label>{input.min_height} cm</label>
                 </div>
 
                 <div>
                     <label>Max weight</label>
-                    <input type='number' value={input.max_weight} name='max_weight'
+                    <input type='range' min="0" max="200" value={input.max_weight} name='max_weight'
                         onChange={handleChange}/>
+                        <label>{input.max_weight} kg</label>
                 </div>
                 <div>
                     <label>Min weight</label>
-                    <input type='number' value={input.min_weight} name='min_weight'
+                    <input type='range' min="0" max="200" value={input.min_weight} name='min_weight'
                         onChange={handleChange}/>
+                        <label>{input.min_weight} kg</label>
                 </div>
 
                 <div>
                     <label>Max life span</label>
-                    <input type='number' value={input.max_life_span} name='max_life_span'
+                    <input type='range' min="0" max="50" value={input.max_life_span} name='max_life_span'
                         onChange={handleChange}/>
+                        <label>{input.max_life_span} years</label>
                 </div>
                 <div>
                     <label>Min life span</label>
-                    <input type='number' value={input.min_life_span} name='min_life_span'
+                    <input type='range' min="0" max="50" value={input.min_life_span} name='min_life_span'
                         onChange={handleChange}/>
+                        <label>{input.min_life_span} years</label>
                 </div>
-                <select onChange={(event) => handleSelect(event)}>
+                <select className="select-button" onChange={(event) => handleSelect(event)}>
 
                     {temperaments.map((temperament) => (
                         <option value={temperament.name} key={temperament.id}>{temperament.name}</option>
@@ -158,14 +164,15 @@ export default function CreateBreed() {
 
                 <button type="submit">Create</button>
             </form>
-
+            <ul>
             {input.temperament.map(temp => (
-                <div className='divTemp'>
-                    <p>{temp}</p>
+                <div className="number temper-container">
                     <button className='xButton' onClick={() => handleDelete(temp)}>X</button>
+                    <li>{temp}</li>
                 </div>
                 
             ))}
+            </ul>
             <Link to='/home'><button className='button-53'>Home</button></Link>
         </div>
         </div>

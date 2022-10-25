@@ -9,7 +9,7 @@ export default function PageOrganizer ({dogsPerPage, allDogs, pageOrganizer}) {
 
     return (
         <nav className="numbers">
-            <ul className="pageOrganizer"> {
+            <ul> {
                 pageNumbers && pageNumbers.map(number => (
                     <a className="number" onClick={() => pageOrganizer(number)}>
                     <li  key={number}>
