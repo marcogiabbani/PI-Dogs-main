@@ -11,7 +11,7 @@ export function getDogs(){
         } catch (error){
             return dispatch({
                 type: 'ERROR',
-                payload: error.message
+                payload: error.message 
             })
         }
 

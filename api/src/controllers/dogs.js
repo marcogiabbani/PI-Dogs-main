@@ -83,6 +83,7 @@ const dbData = async () => {
 
 const getAllBreeds = async (dataExtended = false) => {
     const apiInfo = await apiData(dataExtended)
+    if (!apiInfo) throw new Error ('no hay razas')
     const dbInfo = await dbData();
     const totalInfo = apiInfo.concat(dbInfo);
     return totalInfo
@@ -106,7 +107,8 @@ router.get('/', async (req, res) => {
         } 
         return res.status(200).send(dogs)
     } catch (error){
-       return res.status(400).send(error.message)
+        console.log(error)
+       return res.status(404).send('aaa')
     }
 })
 
