@@ -26,11 +26,18 @@ router.get('/', async (req, res) => {
     }
 })
 
+const validateData = (name, height, weight) => {
+    if (!name || !height || !weight) throw new Error ('missing full data')
+    //podria haber otras validaciones de datos aca, incluyendo los datos no obligatorios
+}
 
 
 router.post('/', async (req, res) => {
+    //podria hacer tres try catch para que en cada cactch pueda responder con un estatus determinado
     try{
+        //aca iria un controller que verifica que los campos requeridos hallan venido por body
         const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
+        //aca iria un controller que busca a ver si existe una raza con ese nomre y si la hay, lanza un error
         let dog = await Dog.create({
             name,
             height,
