@@ -35,3 +35,8 @@ li {
 
     margin-right: -2vw;
 }
+
+.activePage {
+    transform: translateY(-2vw);
+
+}

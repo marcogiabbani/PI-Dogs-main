@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
-     orderByName, orderByWeight } from "../../actions";
+     orderByName, orderByWeight, paginaActual } from "../../actions";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import PageOrganizer from "../PageOrganizer/PageOrganizer";
@@ -14,9 +14,10 @@ export default function Home (){
     const dispatch = useDispatch();
     const allDogs = useSelector((state) => state.dogBreeds);
     const errorhandler = useSelector((state) => state.errorhandler);
-    const allTemperaments = useSelector((state) => state.dogTemperaments)
+    const allTemperaments = useSelector((state) => state.dogTemperaments);
+    const pagina = useSelector((state) => state.currentPage);
     const [order, setOrder] = useState('')
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(pagina);
     const [dogsPerPage, setDogsPerPage] = useState(8);
     const indexOfLastDog = currentPage * dogsPerPage;
     const indexOfFistDog = indexOfLastDog - dogsPerPage;
@@ -25,18 +26,26 @@ export default function Home (){
 
     const pageOrganizer = (pageNumber) => {
         setCurrentPage(pageNumber)
+        dispatch(paginaActual(pageNumber))
+        
     }
 
 
     useEffect(() => {
-        dispatch(getDogs());
-        dispatch(getDogsTemperaments());
+        if (!allDogs.length){
+            setCurrentPage(1)
+            dispatch(getDogs());
+            dispatch(getDogsTemperaments());}
+
+
     }, [dispatch])
 
 
     const handleClick = (event=>{
         event.preventDefault();
         dispatch(getDogs());
+        setCurrentPage(1)
+        dispatch(paginaActual(1))
     })
 
 
@@ -58,11 +67,16 @@ export default function Home (){
 
     const handleTemperamentFilter = (event=>{
         dispatch(filterDogsByTemperament(event.target.value))
+        setCurrentPage(1)
+        dispatch(paginaActual(1))
     })
 
 
     const handleCreatedFilter = (event=>{
         dispatch(filterByCreated(event.target.value))
+        setCurrentPage(1)
+        dispatch(paginaActual(1))
+        
     })
 
 

@@ -2,21 +2,14 @@ import axios from "axios";
 
 export function getDogs(){
     return async function(dispatch){
-        try {
+
             let json = await axios.get("http://localhost:3001/dogs");
             return dispatch({
                 type: 'GET_DOGS',
                 payload: json.data
             })
-        } catch (error){
-            return dispatch({
-                type: 'ERROR',
-                payload: error.message 
-            })
-        }
-
-    }
-}
+        
+}}
 
 export function getDogsTemperaments(){
     return async function(dispatch){
@@ -88,5 +81,12 @@ export function getDetail (id) {
         } catch (error) {
             console.log('error')
         }
+    }
+}
+
+export function paginaActual(payload) {
+    return {
+        type: "SET_PAGE",
+        payload
     }
 }

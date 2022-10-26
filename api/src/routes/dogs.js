@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
                 dog => dog.name.toLowerCase().includes(newBreedName.toLowerCase())
             )
             if (foundedBreed.length) {
-                res.status(200).send(foundedBreed)
+                return res.status(200).send(foundedBreed)
             } else {
-                res.status(404).send("no esta la breed")
+                return res.status(404).send("no esta la breed")
             }
         } 
         return res.status(200).send(dogs)

@@ -1,10 +1,11 @@
-import { getDogsTemperaments } from "../actions";
+
 
 const initialState = {
     dogBreeds : [],
     allDogBreeds : [],
     dogTemperaments : [],
     detail: [],
+    currentPage: [1],
     errorhandler: []
 
     
@@ -118,11 +119,17 @@ function rootReducer (state = initialState, action){
                     ...state,
                     dogBreeds: sortedWeight
                 }
-                case 'ERROR':
+            case 'ERROR':
                     return {
                         ...state,
                         errorhandler: action.payload
                     }
+            
+            case 'SET_PAGE':
+                return {
+                    ...state,
+                    currentPage: action.payload
+                }
 
 
         default:
