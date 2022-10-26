@@ -26,6 +26,7 @@ Body {
     position: fixed;
     background-color: var(--bg-secondary);
     transition: width 200ms ease;
+   
 }
 
 
@@ -50,6 +51,7 @@ Body {
     height: 5rem;
     color: var(--text-secondary);
     text-decoration: none;
+    cursor: default;
     
 }
 
@@ -58,6 +60,8 @@ Body {
     display: none;
     margin-left: 1rem;
     justify-content: left;
+    cursor: pointer;
+    text-decoration: solid;
 }
 
 
@@ -82,8 +86,9 @@ Body {
 
 
 
-.link-text:hover {
-    color: var(--text-primary)
+.link-text:hover  {
+    color: var(--text-primary);
+
 }
 
 
@@ -144,7 +149,13 @@ a:active {
       background-repeat: no-repeat;
       box-shadow: 1rem 1rem 1rem 0 var(--text-secondary);
       border-radius: 0 0 8px 8px;
+    cursor: pointer;
   }
+
+.select-button:hover {
+
+    background-color: var(--text-secondary);
+}
   .select-button::-ms-expand {
       display: none;
   }
