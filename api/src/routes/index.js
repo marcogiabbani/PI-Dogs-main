@@ -1,5 +1,5 @@
-const  dogs = require('../controllers/dogs.js');
-const  temper = require('../controllers/temperaments.js');
+const  dogs = require('./dogs.js');
+const  temper = require('./temperaments.js');
 
 
 const { Router } = require('express');

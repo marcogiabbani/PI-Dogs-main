@@ -1,8 +1,7 @@
-const { Router } = require('express');
-const router = Router();
 const axios = require('axios')
-const { Dog, Temperament } = require("../db");
 
+
+const { Dog, Temperament } = require("../db");
 
 function handleRange(string) {
     let averageAndCorrectedString = []
@@ -82,74 +81,11 @@ const dbData = async () => {
 
 
 const getAllBreeds = async (dataExtended = false) => {
+
     const apiInfo = await apiData(dataExtended)
-    if (!apiInfo) throw new Error ('no hay razas')
     const dbInfo = await dbData();
     const totalInfo = apiInfo.concat(dbInfo);
     return totalInfo
 }
 
-
-router.get('/', async (req, res) => {
-    try {
-        const newBreedName = req.query.name;
-        const dogs = await getAllBreeds();
-        if (newBreedName) {
-            const foundedBreed = dogs.filter(
-                //podria ser un find?
-                dog => dog.name.toLowerCase().includes(newBreedName.toLowerCase())
-            )
-            if (foundedBreed.length) {
-                res.status(200).send(foundedBreed)
-            } else {
-                res.status(404).send("no esta la breed")
-            }
-        } 
-        return res.status(200).send(dogs)
-    } catch (error){
-        console.log(error)
-       return res.status(404).send('aaa')
-    }
-})
-
-
-
-
-
-router.post('/', async (req, res) => {
-    try{
-        const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
-        let dog = await Dog.create({
-            name,
-            height,
-            weight,
-            life_span,
-            createdBreed,
-    });
-    let temperamentDb = await Temperament.findAll({
-        where: {name: temperament},
-    });
-    dog.addTemperament(temperamentDb);
-    res.status(200).send("Ok");
-    } catch (error) {
-    res.status(400).send("fallo la carga")
-    }
-});
-
-
-router.get("/:idRaza", async (req, res) => {
-    try {
-        const {idRaza} = req.params;
-        if (idRaza) {
-            let dataExtended = true;
-            const dogs = await getAllBreeds(dataExtended);
-            const foundedDog = dogs.filter((breed) => (breed.id == idRaza))
-            res.status(200).send(foundedDog)
-        }
-    }  catch {
-        res.status(404).send("no se encontro el perro")
-    }
-})
-
-
-module.exports = router;
+module.exports = getAllBreeds;
