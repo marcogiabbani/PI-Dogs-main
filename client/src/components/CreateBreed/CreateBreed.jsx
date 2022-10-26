@@ -4,13 +4,26 @@ import {postBreed, getDogsTemperaments} from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateBreed.css"
 
-//ejemplo de validaciones
+
 function validate (input) {
     let errors = {};
     if (!input.name) {
         errors.name = 'A name is required';
-    } else if (!input.temperament){
-        errors.temperament = 'At least one temperament is required';
+    }
+    if (!input.min_height || !input.max_height) {
+        errors.height = 'Height range is required';
+    }
+    if (!input.min_weight || !input.max_weight) {
+        errors.weight = 'Weight range is required';
+    }
+
+    if (input.min_height < 0 || input.min_weight < 0 || input.min_life_span < 0 ||
+        input.max_height < 0 || input.max_weight < 0 || input.max_life_span < 0){
+        errors.min = 'Values should not be less than 0';
+    }
+    if (input.min_height > 200 || input.min_weight > 200 || input.min_life_span > 200 ||
+        input.max_height > 200 || input.max_weight > 200 || input.max_life_span > 200){
+        errors.max = 'Values should not be more than 200';
     }
     return errors;
 }
@@ -19,6 +32,7 @@ function validate (input) {
 
 
 export default function CreateBreed() {
+
     const dispatch = useDispatch();
     const history = useHistory();
     const temperaments = useSelector((state) => state.dogTemperaments);
@@ -38,14 +52,14 @@ export default function CreateBreed() {
 
     useEffect(() => {
         dispatch(getDogsTemperaments());
-    }, [])
+    }, [dispatch])
 
 
     const handleChange = (event) => {
         setInput({
             ...input,
             [event.target.name] : event.target.value
-        })
+        });
         setErrors(validate({
             ...input,
             [event.target.name]: event.target.value                 //ERRRORS HANDLERS
@@ -56,21 +70,21 @@ export default function CreateBreed() {
         setInput ({
             ...input,
             temperament: [...input.temperament, event.target.value]
-            
         })
-        console.log(input)
     }
 
     const handleDelete = (tempToDelete) => {
         setInput({
             ...input,
             temperament: input.temperament.filter(temper => temper !== tempToDelete)
-
         })
     }
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        
         dispatch(postBreed({
             name: input.name,
             height: {
@@ -110,69 +124,76 @@ export default function CreateBreed() {
                     <label>Name:</label>
                     <input type='text' value={input.name} name='name'
                         onChange={handleChange}/>
-                    {errors.name && (
-                        <p className="error">{errors.name}</p>                  //ERROR HANDLING
-                    )}
                 </div>
+
                 <div>
                     <label>Max height</label>
-                    <input type='range' min="0" max="200" value={input.max_height} name='max_height'
+                    <input type='number' value={input.max_height} name='max_height'
                         onChange={handleChange}/>
                     <label>{input.max_height} cm</label>
                 </div>
+
                 <div>
                     <label>Min height</label>
-                    <input type='range' min="0" max="200" value={input.min_height} name='min_height'
+                    <input type='number' value={input.min_height} name='min_height'
                         onChange={handleChange}/>
                         <label>{input.min_height} cm</label>
                 </div>
 
                 <div>
                     <label>Max weight</label>
-                    <input type='range' min="0" max="200" value={input.max_weight} name='max_weight'
+                    <input type='number' value={input.max_weight} name='max_weight'
                         onChange={handleChange}/>
                         <label>{input.max_weight} kg</label>
                 </div>
+
                 <div>
                     <label>Min weight</label>
-                    <input type='range' min="0" max="200" value={input.min_weight} name='min_weight'
+                    <input type='number' value={input.min_weight} name='min_weight'
                         onChange={handleChange}/>
                         <label>{input.min_weight} kg</label>
                 </div>
 
                 <div>
                     <label>Max life span</label>
-                    <input type='range' min="0" max="50" value={input.max_life_span} name='max_life_span'
+                    <input type='number' value={input.max_life_span} name='max_life_span'
                         onChange={handleChange}/>
                         <label>{input.max_life_span} years</label>
                 </div>
+
                 <div>
                     <label>Min life span</label>
-                    <input type='range' min="0" max="50" value={input.min_life_span} name='min_life_span'
+                    <input type='number'     value={input.min_life_span} name='min_life_span'
                         onChange={handleChange}/>
                         <label>{input.min_life_span} years</label>
                 </div>
-                <select className="select-button" onChange={(event) => handleSelect(event)}>
 
+                <select className="select-button" onChange={(event) => handleSelect(event)}>
                     {temperaments.map((temperament) => (
                         <option value={temperament.name} key={temperament.id}>{temperament.name}</option>
                     ))}
-
                 </select>
 
-                {/* <ul><li>{input.temperament.map(option => `${option}, `)}</li></ul> */}
 
-                <button type="submit">Create</button>
+                 <button type="submit" disabled={(Object.keys(errors) != 0)}>Create</button>
             </form>
+
             <ul>
             {input.temperament.map(temp => (
                 <div className="number temper-container">
                     <button className='xButton' onClick={() => handleDelete(temp)}>X</button>
                     <li>{temp}</li>
                 </div>
-                
             ))}
             </ul>
+
+            {errors.name && (<p className="error">{errors.name}</p>)}
+            {errors.min && (<p className="error">{errors.min}</p>)}
+            {errors.max && (<p className="error">{errors.max}</p>)}
+            {errors.height && (<p className="error">{errors.height}</p>)}
+            {errors.weight && (<p className="error">{errors.weight}</p>)}
+            {errors.temperament && (<p className="error">{errors.temperament}</p>)}
+
             <Link to='/home'><button className='button-53'>Home</button></Link>
         </div>
         </div>
