@@ -1,10 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-
 const { Dog, Temperament } = require("../db");
 let getAllBreeds  = require("../controllers/index");
-
-
 
 
 router.get('/', async (req, res) => {
