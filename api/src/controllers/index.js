@@ -1,9 +1,10 @@
 const axios = require('axios')
-
-
 const { Dog, Temperament } = require("../db");
+const AVERAGE = 0;
+const RANGE = 1;
 
-function handleRange(string) {
+
+const parseRange = (string) => {
     let averageAndCorrectedString = []
     if (string.includes('NaN') && string.includes(" - ")) {
         let stringWithoutNan = string.replace('NaN', '');
@@ -30,35 +31,35 @@ function handleRange(string) {
 
 const apiData = async (dataExtended) => {
     const apiRawData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
-    //deberia tirar un error en caso de quye la info venga vacia
     let apiData;
+
     dataExtended ? apiData = await apiRawData.data.map(breed => {
-        // let averageAndCorrectedWeight = handleRange(breed.weight.metric);
-        // let averageAndCorrectedHeight = handleRange(breed.height.metric);
-        //ojo que quizas tengo que mandar weight y height en metric
-        return {
-            id: breed.id,
-            name: breed.name,
-            image: breed.image.url,
-            temperament: breed.temperament,
-            weight: breed.weight,
-            height: breed.height,
-            life_span: breed.life_span,
-            createdBreed: false
-        };}) : apiData = await apiRawData.data.map(breed => {
-            let averageAndCorrectedWeight = handleRange(breed.weight.metric);
+            let averageAndCorrectedWeight = parseRange(breed.weight.metric);
+            let averageAndCorrectedHeight = parseRange(breed.height.metric);
+            return {
+                id: breed.id,
+                name: breed.name,
+                image: breed.image.url,
+                temperament: breed.temperament,
+                weight:averageAndCorrectedWeight[RANGE],
+                height: averageAndCorrectedHeight[RANGE],
+                life_span: breed.life_span,
+                createdBreed: false
+            }
+        }) : apiData = await apiRawData.data.map(breed => {
+            let averageAndCorrectedWeight = parseRange(breed.weight.metric);
                 return {
                     id: breed.id,
                     name: breed.name,
                     image: breed.image.url,
                     temperament: breed.temperament,
                     weight: {
-                        metric: averageAndCorrectedWeight[1],
-                        metricAverage: averageAndCorrectedWeight[0]
+                        metric: averageAndCorrectedWeight[RANGE],
+                        metricAverage: averageAndCorrectedWeight[AVERAGE]
                     },
                     createdBreed: false
-                };
-            });
+                }
+        })
     return apiData;
 }
 
@@ -73,15 +74,11 @@ const dbData = async () => {
             }
         }
     })
-
     return dbBreeds;
-}       
-
-
+}
 
 
 const getAllBreeds = async (dataExtended = false) => {
-
     const apiInfo = await apiData(dataExtended)
     const dbInfo = await dbData();
     const totalInfo = apiInfo.concat(dbInfo);

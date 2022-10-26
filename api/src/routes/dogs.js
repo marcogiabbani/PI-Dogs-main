@@ -31,8 +31,6 @@ router.get('/', async (req, res) => {
 
 
 
-
-
 router.post('/', async (req, res) => {
     try{
         const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
