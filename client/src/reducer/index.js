@@ -130,6 +130,11 @@ function rootReducer (state = initialState, action){
                     ...state,
                     currentPage: action.payload
                 }
+            case 'CLEAR_DETAIL':
+                return {
+                    ...state,
+                    detail: []
+                }
 
 
         default:

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { getDogs, getDogsTemperaments, filterDogsByTemperament, filterByCreated,
-     orderByName, orderByWeight, paginaActual } from "../../actions";
+     orderByName, orderByWeight, paginaActual, clearDetail } from "../../actions";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import PageOrganizer from "../PageOrganizer/PageOrganizer";
@@ -32,6 +32,7 @@ export default function Home (){
 
 
     useEffect(() => {
+        dispatch(clearDetail())
         if (!allDogs.length){
             setCurrentPage(1)
             dispatch(getDogs());
@@ -82,7 +83,7 @@ export default function Home (){
 
     return ( 
         <div>
-            {errorhandler ? <h1>{errorhandler}</h1> : null}
+            {/* {errorhandler ? <h1>{errorhandler}</h1> : null} */}
             <nav className="navbar">
                 <ul className="navbar-nav">
 

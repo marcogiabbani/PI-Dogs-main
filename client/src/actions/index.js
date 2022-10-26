@@ -90,3 +90,10 @@ export function paginaActual(payload) {
         payload
     }
 }
+
+export function clearDetail() {
+    return {
+        type: 'CLEAR_DETAIL'
+
+    }
+}
