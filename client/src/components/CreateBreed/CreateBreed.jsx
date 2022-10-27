@@ -201,7 +201,7 @@ export default function CreateBreed() {
             {errorOcurred && (<p className="error">{errorOcurred}</p>)}
 
 
-            <Link to='/home'><button className='button-53'>Home</button></Link>
+            <Link to='/home'><button onClick={event => dispatch(clearErrorHandler())} className='button-53'>Home</button></Link>
         </div>
         </div>
     )
