@@ -85,4 +85,16 @@ const getAllBreeds = async (dataExtended = false) => {
     return totalInfo
 }
 
-module.exports = getAllBreeds;
+
+const validateData = (name, height, weight) => {
+    if (!name || !height || !weight) throw new Error ('Missing or damaged data')
+    //podria haber otras validaciones de datos aca, incluyendo los datos no obligatorios
+}
+
+const validateExistance = (dogs, targetName) => {
+    if (dogs.find(dog => dog.name === targetName)) {
+        throw new Error ('Breed already exists')
+    }
+}
+
+module.exports = {getAllBreeds, validateData, validateExistance};

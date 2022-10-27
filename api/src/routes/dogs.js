@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { Dog, Temperament } = require("../db");
-let getAllBreeds  = require("../controllers/index");
+const {getAllBreeds, validateData, validateExistance}  = require("../controllers/index");
 
 
 router.get('/', async (req, res) => {
@@ -26,32 +26,32 @@ router.get('/', async (req, res) => {
     }
 })
 
-const validateData = (name, height, weight) => {
-    if (!name || !height || !weight) throw new Error ('missing full data')
-    //podria haber otras validaciones de datos aca, incluyendo los datos no obligatorios
-}
+
+
 
 
 router.post('/', async (req, res) => {
-    //podria hacer tres try catch para que en cada cactch pueda responder con un estatus determinado
+    const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
     try{
-        //aca iria un controller que verifica que los campos requeridos hallan venido por body
-        const {name, height, weight, life_span, temperament, createdBreed,} = req.body;
-        //aca iria un controller que busca a ver si existe una raza con ese nomre y si la hay, lanza un error
+        validateData(name, height, weight)
+        let allDogs = await getAllBreeds()
+        validateExistance(allDogs, name)
         let dog = await Dog.create({
             name,
             height,
             weight,
             life_span,
             createdBreed,
-    });
-    let temperamentDb = await Temperament.findAll({
-        where: {name: temperament},
-    });
-    dog.addTemperament(temperamentDb);
-    res.status(200).send("Ok");
+        });
+        let temperamentDb = await Temperament.findAll({
+            where: {name: temperament},
+        });
+        dog.addTemperament(temperamentDb);
+        res.status(200).send("Ok");
     } catch (error) {
-    res.status(400).send("fallo la carga")
+        if (error.message == 'Missing or damaged data') return res.status(400).send(error.message)
+        if (error.message == 'Breed already exists') return res.status(401).send(error.message)//unauthorized
+        return res.status(500).send(error.message)//cant resolve
     }
 });
 
