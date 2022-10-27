@@ -36,7 +36,10 @@ export default function Home (){
         if (!allDogs.length){
             setCurrentPage(1)
             dispatch(getDogs());
-            dispatch(getDogsTemperaments());}
+            }
+        if (!allTemperaments.length){
+            dispatch(getDogsTemperaments());
+        }
 
 
     }, [dispatch])

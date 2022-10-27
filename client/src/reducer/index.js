@@ -54,6 +54,7 @@ function rootReducer (state = initialState, action){
         case "POST_BREED":
             return {
                 ...state,
+                errorhandler: action.payload
             }
             
         case "FILTER_BY_CREATED":
@@ -135,7 +136,11 @@ function rootReducer (state = initialState, action){
                     ...state,
                     detail: []
                 }
-
+            case 'CLEAR_ERROR_HANDLER':
+                return {
+                    ...state,
+                    errorhandler:[]
+                }
 
         default:
             return state;

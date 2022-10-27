@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import {postBreed, getDogsTemperaments} from '../../actions';
+import {postBreed, getDogsTemperaments, clearErrorHandler} from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateBreed.css"
 
@@ -31,11 +31,13 @@ function validate (input) {
 
 
 
+
 export default function CreateBreed() {
 
     const dispatch = useDispatch();
     const history = useHistory();
     const temperaments = useSelector((state) => state.dogTemperaments);
+    const errorOcurred = useSelector((state) => state.errorhandler);
     const [errors, setErrors] = useState({});
 
     const [input, setInput] = useState({
@@ -47,11 +49,14 @@ export default function CreateBreed() {
         max_life_span: 0,
         min_life_span: 0,
         createdBreed: true,
-        temperament: []
+        temperament: [],
+
     })
 
     useEffect(() => {
-        dispatch(getDogsTemperaments());
+        if (!temperaments.length){
+        dispatch(getDogsTemperaments());}
+
     }, [dispatch])
 
 
@@ -62,7 +67,7 @@ export default function CreateBreed() {
         });
         setErrors(validate({
             ...input,
-            [event.target.name]: event.target.value                 //ERRRORS HANDLERS
+            [event.target.name]: event.target.value
         }))
     }
 
@@ -83,23 +88,22 @@ export default function CreateBreed() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        
-        dispatch(postBreed({
-            name: input.name,
-            height: {
-                metric: `${input.max_height} - ${input.min_height}`,
-            },
-            weight: {
-                metric: `${input.max_weight} - ${input.min_weight}`,
-                metricAverage: (parseInt(input.max_weight) + parseInt(input.min_weight)) / 2
-            },
-            life_span: `${input.max_life_span} - ${input.min_life_span} years`,
-            createdBreed: true,
-            temperament: input.temperament
-            
-            }));
-        alert("New breed created");
+            dispatch(postBreed({
+                name: input.name,
+                height: {
+                    metric: `${input.max_height} - ${input.min_height}`,
+                },
+                weight: {
+                    metric: `${input.max_weight} - ${input.min_weight}`,
+                    metricAverage: (parseInt(input.max_weight) + parseInt(input.min_weight)) / 2
+                },
+                life_span: `${input.max_life_span} - ${input.min_life_span} years`,
+                createdBreed: true,
+                temperament: input.temperament
+                
+                }));
+    }
+    const handleReset = (event) => {
         setInput({
             name: '',
             max_height: 0,
@@ -113,6 +117,7 @@ export default function CreateBreed() {
         })
         history.push("/home");
     }
+
 
     return (
         <div className='detailContainer'>
@@ -193,6 +198,8 @@ export default function CreateBreed() {
             {errors.height && (<p className="error">{errors.height}</p>)}
             {errors.weight && (<p className="error">{errors.weight}</p>)}
             {errors.temperament && (<p className="error">{errors.temperament}</p>)}
+            {errorOcurred && (<p className="error">{errorOcurred}</p>)}
+
 
             <Link to='/home'><button className='button-53'>Home</button></Link>
         </div>

@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
             where: {name: temperament},
         });
         dog.addTemperament(temperamentDb);
-        res.status(200).send("Ok");
+        res.status(200).send("Breed created successfully");
     } catch (error) {
         if (error.message == 'Missing or damaged data') return res.status(400).send(error.message)
         if (error.message == 'Breed already exists') return res.status(401).send(error.message)//unauthorized

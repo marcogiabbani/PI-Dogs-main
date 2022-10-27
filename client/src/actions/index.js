@@ -21,10 +21,40 @@ export function getDogsTemperaments(){
     }
 }
 
+
+// export function getDogsTemperaments(){
+//     return async function(dispatch){
+//         axios
+//         .get("http://localhost:3001/temperaments")
+//         .then((response) => response.data)
+//         .then((data) => {
+//             dispatch({
+//                 type: 'GET_DOGS_TEMPERAMENTS',
+//                 payload: json.data
+//             })
+//         })
+//         .catch((error) =>{
+//             //manejar el dispatch del error
+//         })
+//     }
+// }
+
+
 export function postBreed (payload) {
     return async function(dispatch){
-        let response = await axios.post("http://localhost:3001/dogs", payload);
-        return response;
+        try {
+            let answer = await axios.post("http://localhost:3001/dogs", payload);
+            return dispatch({
+                type: 'POST_BREED',
+                payload: answer.data
+                }); 
+        } catch (error){
+            return dispatch({
+                type: 'POST_BREED',
+                payload: error.response.data
+                });
+
+        }
     }
 }
 
@@ -94,6 +124,13 @@ export function paginaActual(payload) {
 export function clearDetail() {
     return {
         type: 'CLEAR_DETAIL'
+
+    }
+}
+
+export function clearErrorHandler() {
+    return {
+        type: 'CLEAR_ERROR_HANDLER'
 
     }
 }
