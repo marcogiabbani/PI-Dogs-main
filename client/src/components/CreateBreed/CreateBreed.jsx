@@ -91,7 +91,7 @@ export default function CreateBreed() {
             dispatch(postBreed({
                 name: input.name,
                 height: {
-                    metric: `${input.max_height} - ${input.min_height}`,
+                    metric: `${input.max_height} - ${input.min_height}`
                 },
                 weight: {
                     metric: `${input.max_weight} - ${input.min_weight}`,

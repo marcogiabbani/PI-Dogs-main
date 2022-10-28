@@ -12,6 +12,7 @@ export default function SearchBar (){
     const handleInputChange = (event) => {
         event.preventDefault();
         setName(event.target.value)
+        dispatch(getBreedName(name))
         console.log(name)
     }
 

@@ -92,10 +92,24 @@ function rootReducer (state = initialState, action){
             }
 
             case 'GET_DETAILS':
+
+                for (let item of action.payload) {
+                    let stringy = ''
+                    if (item.createdBreed) {
+                        for (let temp of item.temperaments) {
+                            stringy += temp.name + ', '
+                        }
+                    item.temperament = stringy.slice(0,-2)
+                    }
+                }
                 return {
                     ...state,
                     detail: action.payload
                 }
+
+
+
+                
 
             case "ORDER_BY_WEIGHT":
                 let sortedWeight = action.payload === "asc" ? state.dogBreeds.sort(function(a,b) {

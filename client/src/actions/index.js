@@ -11,33 +11,33 @@ export function getDogs(){
         
 }}
 
-export function getDogsTemperaments(){
-    return async function(dispatch){
-        let json = await axios.get("http://localhost:3001/temperaments");
-        return dispatch({
-            type: 'GET_DOGS_TEMPERAMENTS',
-            payload: json.data
-        })
-    }
-}
-
-
 // export function getDogsTemperaments(){
 //     return async function(dispatch){
-//         axios
-//         .get("http://localhost:3001/temperaments")
-//         .then((response) => response.data)
-//         .then((data) => {
-//             dispatch({
-//                 type: 'GET_DOGS_TEMPERAMENTS',
-//                 payload: json.data
-//             })
-//         })
-//         .catch((error) =>{
-//             //manejar el dispatch del error
+//         let json = await axios.get("http://localhost:3001/temperaments");
+//         return dispatch({
+//             type: 'GET_DOGS_TEMPERAMENTS',
+//             payload: json.data
 //         })
 //     }
 // }
+
+
+export function getDogsTemperaments(){
+    return async function(dispatch){
+        axios
+        .get("http://localhost:3001/temperaments")
+        .then((json) => json.data)
+        .then((json) => {
+            dispatch({
+                type: 'GET_DOGS_TEMPERAMENTS',
+                payload: json
+            })
+        })
+        .catch((error) =>{
+            //manejar el dispatch del error
+        })
+    }
+}
 
 
 export function postBreed (payload) {

@@ -12,8 +12,8 @@ export default function PageOrganizer ({dogsPerPage, allDogs, pageOrganizer}) {
         <nav className="numbers">
             <ul> {
                 pageNumbers && pageNumbers.map(number => (
-                    <a className={currentNumber === number ? "number activePage" : 'number'}onClick={() => pageOrganizer(number)}>
-                    <li  key={number}>
+                    <a key={number} className={currentNumber === number ? "number activePage" : 'number'}onClick={() => pageOrganizer(number)}>
+                    <li  >
                         {number}
                     </li>
                     </a>

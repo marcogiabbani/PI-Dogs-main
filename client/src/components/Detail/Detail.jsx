@@ -23,8 +23,8 @@ export default function Detail(props) {
                     <div className='container'>
                         <img className='detailImg' src={myBreed[0].image}/>
                         <h2>Temperament: {myBreed[0].temperament}</h2>
-                        <h2>Weight renge: {myBreed[0].weight} KGs</h2>
-                        <h2>Height range: {myBreed[0].height} cm.</h2>
+                        <h2>Weight renge: {myBreed[0].createdBreed ? myBreed[0].weight.metric : myBreed[0].weight} KGs</h2>
+                        <h2>Height range: {myBreed[0].createdBreed ? myBreed[0].height.metric : myBreed[0].height} cm.</h2>
                         <h2>Life span range: {myBreed[0].life_span} years</h2>
                         <Link to='/home'><button className='button-53'>Home</button></Link>
                     </div>
