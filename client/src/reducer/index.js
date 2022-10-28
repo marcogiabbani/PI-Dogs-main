@@ -41,6 +41,17 @@ function rootReducer (state = initialState, action){
                 ...state,
                 dogBreeds: action.payload
             }
+
+
+            case "POST_BREED":
+                return {
+                    ...state,
+                    errorhandler: action.payload
+                }
+                
+
+
+            
             
         case 'FILTER_BY_TEMPERAMENTS':
         const allDogs = state.allDogBreeds;
@@ -51,12 +62,7 @@ function rootReducer (state = initialState, action){
             ...state, 
             dogBreeds: temperamentFiltered
         }
-        case "POST_BREED":
-            return {
-                ...state,
-                errorhandler: action.payload
-            }
-            
+
         case "FILTER_BY_CREATED":
             const createdAndApiDogs = state.allDogBreeds;
             const createdFiltered = action.payload === 'created' ? 
@@ -70,18 +76,18 @@ function rootReducer (state = initialState, action){
             
         case "ORDER_BY_NAME":
             let sortedArr = action.payload === "desc" ? state.dogBreeds.sort(function(a,b) {
-                if (a.name > b.name) {
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {
                     return 1;
                 }
-                if (b.name > a.name) {
+                if (b.name.toUpperCase() > a.name.toUpperCase()) {
                     return -1
                 }
                 return 0;
             }) : state.dogBreeds.sort(function(a,b) {
-                if (a.name > b.name) {
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {
                     return -1;
                 }
-                if (b.name > a.name) {
+                if (b.name.toUpperCase() > a.name.toUpperCase()) {
                     return 1;
                 }
                 return 0;
