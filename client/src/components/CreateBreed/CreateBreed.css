@@ -1,8 +1,41 @@
+.form-container {
+    width: 80vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 2rem;
+    align-self: center;
+    margin-right: 150px;
+}
 
-.temper-container {
-
-    min-width: 100px;
-    min-height: 80px;
-
+.form-number {
+    display: flex;
+    justify-content: space-around;
 
 }
+
+.temper-container {
+    min-width: 100px;
+    min-height: 80px;
+    
+}
+
+.select-button {
+    align-self: center;
+}
+
+.create {
+    align-self: center;
+    margin-top: 5vh;
+}
+
+.from-number {
+    font-size:medium;
+}
+
+.xButton {
+    max-width: 5px;
+    max-height: 5px;
+}
+

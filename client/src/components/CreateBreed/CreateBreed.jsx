@@ -120,57 +120,51 @@ export default function CreateBreed() {
 
 
     return (
-        <div className='detailContainer'>
+        <div className="detailContainer">
             
-            <h1 className="welcome-title">Create your breed</h1>
-            <div className='container'>
+            <h1 className="welcome-title form">Create your breed</h1>
+            <div>
             <form className="form-container" onSubmit={(event) => handleSubmit(event)}>
-                <div>
-                    <label>Name:</label>
-                    <input type='text' value={input.name} name='name'
+                <div className="form-number form-name">
+                    <label>*Name:</label>
+                    <input className="search-input form" type='text' value={input.name} name='name'
                         onChange={handleChange}/>
                 </div>
 
-                <div>
-                    <label>Max height</label>
-                    <input type='number' value={input.max_height} name='max_height'
+                <div className="form-number">
+                    <label >*Max height in cm</label>
+                    <input className="search-input from-number" type='number' value={input.max_height} name='max_height'
                         onChange={handleChange}/>
-                    <label>{input.max_height} cm</label>
                 </div>
 
-                <div>
-                    <label>Min height</label>
-                    <input type='number' value={input.min_height} name='min_height'
+                <div className="form-number">
+                    <label>*Min height in cm</label>
+                    <input className="search-input from-number" type='number' value={input.min_height} name='min_height'
                         onChange={handleChange}/>
-                        <label>{input.min_height} cm</label>
                 </div>
 
-                <div>
-                    <label>Max weight</label>
-                    <input type='number' value={input.max_weight} name='max_weight'
+                <div className="form-number">
+                    <label>*Max weight in kg</label>
+                    <input className="search-input from-number" type='number' value={input.max_weight} name='max_weight'
                         onChange={handleChange}/>
-                        <label>{input.max_weight} kg</label>
                 </div>
 
-                <div>
-                    <label>Min weight</label>
-                    <input type='number' value={input.min_weight} name='min_weight'
+                <div className="form-number">
+                    <label>*Min weight in kg</label>
+                    <input className="search-input from-number" type='number' value={input.min_weight} name='min_weight'
                         onChange={handleChange}/>
-                        <label>{input.min_weight} kg</label>
                 </div>
 
-                <div>
-                    <label>Max life span</label>
-                    <input type='number' value={input.max_life_span} name='max_life_span'
+                <div className="form-number">
+                    <label>Max life span in years</label>
+                    <input className="search-input from-number" type='number' value={input.max_life_span} name='max_life_span'
                         onChange={handleChange}/>
-                        <label>{input.max_life_span} years</label>
                 </div>
 
-                <div>
-                    <label>Min life span</label>
-                    <input type='number'     value={input.min_life_span} name='min_life_span'
+                <div className="form-number">
+                    <label>Min life span in years</label>
+                    <input className="search-input from-number" type='number'     value={input.min_life_span} name='min_life_span'
                         onChange={handleChange}/>
-                        <label>{input.min_life_span} years</label>
                 </div>
 
                 <select className="select-button" onChange={(event) => handleSelect(event)}>
@@ -180,28 +174,30 @@ export default function CreateBreed() {
                 </select>
 
 
-                 <button type="submit" disabled={(Object.keys(errors) != 0)}>Create</button>
+                 <button className='button-53 create' type="submit" disabled={(Object.keys(errors) != 0)}>Create</button>
             </form>
-
-            <ul>
-            {input.temperament.map(temp => (
-                <div className="number temper-container">
-                    <button className='xButton' onClick={() => handleDelete(temp)}>X</button>
-                    <li>{temp}</li>
-                </div>
-            ))}
-            </ul>
-
+            <div className="container">
             {errors.name && (<p className="error">{errors.name}</p>)}
             {errors.min && (<p className="error">{errors.min}</p>)}
             {errors.max && (<p className="error">{errors.max}</p>)}
             {errors.height && (<p className="error">{errors.height}</p>)}
             {errors.weight && (<p className="error">{errors.weight}</p>)}
             {errors.temperament && (<p className="error">{errors.temperament}</p>)}
-            {errorOcurred && (<p className="error">{errorOcurred}</p>)}
+            {errorOcurred && (<p>{errorOcurred}</p>)}
+            <ul>
+            {input.temperament.map(temp => (
+                <div className="number temper-container">
+                    <button onClick={() => handleDelete(temp)}>X</button>
+                    <li>{temp}</li>
+                </div>
+            ))}
+            </ul>
+
+
 
 
             <Link to='/home'><button onClick={event => dispatch(clearErrorHandler())} className='button-53'>Home</button></Link>
+            </div>
         </div>
         </div>
     )
